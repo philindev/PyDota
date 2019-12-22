@@ -7,9 +7,6 @@ class Map:
         if mode:
             self.start_edit()
 
-    def draw_cells(self, surface, cell_size):
-        pass
-
     def start_edit(self):
         """
             Открывает меню разработки карты
@@ -26,7 +23,7 @@ class Map:
 
         pg.init()
         size = width, height = 1300, 1000
-        screen = pg.display.set_mode(size)
+        screen = pg.display.set_mode(size, pg.RESIZABLE)
         clock = pg.time.Clock()
         running = True
         while running:
