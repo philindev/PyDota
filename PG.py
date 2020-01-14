@@ -5,6 +5,8 @@ import sys
 
 import pygame as pg
 from pygame.math import Vector2
+from sprites import Soil, Water
+from map import Map
 
 
 class Player(pg.sprite.Sprite):
@@ -59,16 +61,12 @@ class Camera:
     def count_camera_pos(self):
         x, y = self.screen_size
         heading = self.player.pos - self.camera
-        # Follow the player with the camera.
-        # Move the camera by a fraction of the heading vector's length.
         self.camera += heading * 0.05
-        # The actual offset that we have to add to the positions of the objects.
-        offset = -self.camera + Vector2(x // 2, y // 2)  # + 400, 300 to center the player.
+        offset = -self.camera + Vector2(x // 2, y // 2) # центрирует камеру на игроке
         self.player.screen.fill((30, 30, 30))
-        # Blit all objects and add the offset to their positions.
-        for background_rect in self.background_rects:
-            topleft = background_rect.topleft + offset
-            pg.draw.rect(self.player.screen, (200, 50, 70), (topleft, background_rect.size))
+        # for background_rect in self.background_rects:
+        #     topleft = background_rect.topleft + offset
+        #     pg.draw.rect(self.player.screen, (200, 50, 70), (topleft, background_rect.size))
 
         self.player.screen.blit(self.player.image, self.player.rect.topleft + offset)
 
@@ -76,8 +74,17 @@ class Camera:
         self.background_rects = rects
 
 
-def create_map(width, height):
-    pass
+def create_map(width, height, all_sprites, land):
+    # render_map = pg.Surface((3360, 3360))
+    x, y = 0, 0
+    for row in land:
+        for element in row:
+            if element == "В":
+                all_sprites.add(Water((x, y)))
+            elif element == 'З':
+                all_sprites.add(Soil((x, y)))
+            x += width
+        y += height
 
 
 def main():
@@ -90,9 +97,10 @@ def main():
     player.add_screen(screen)
     camera = Camera(player)
 
-    background_rects = [pg.Rect(randrange(-3000, 3001), randrange(-3000, 3001), 20, 20)
-                        for _ in range(500)]
-    camera.add_rects(background_rects)
+    # background_rects = [pg.Rect(randrange(-3000, 3001), randrange(-3000, 3001), 20, 20)
+    #                     for _ in range(500)]
+    # camera.add_rects(background_rects)
+    create_map(280, 280, all_sprites, Map.land)
 
     while True:
         for event in pg.event.get():
@@ -101,13 +109,10 @@ def main():
 
             player.handle_event(event)
 
+        all_sprites.draw(screen)
         all_sprites.update()
-        # A vector that points from the camera to the player.
         # heading = player.pos - camera
-        # # Follow the player with the camera.
-        # # Move the camera by a fraction of the heading vector's length.
         # camera += heading * 0.05
-        # # The actual offset that we have to add to the positions of the objects.
         # offset = -camera + Vector2(400, 300)  # + 400, 300 to center the player.
         camera.count_camera_pos()
 
