@@ -25,10 +25,10 @@ def btn(x: int, y: int, screen: pygame.Surface, icon_path: str, shadow: str, tex
     if btn_size is None:
         btn_size = 280, 80
     width, height = btn_size
-    button = pygame.transform.scale(load_image(icon_path), (width, height))
+    button = pygame.transform.scale(pygame.image.load(icon_path), (width, height))
     color = (255, 255, 255)
     if mode:
-        button = pygame.transform.scale(load_image(shadow), (width, height))
+        button = pygame.transform.scale(pygame.image.load(shadow), (width, height))
     if mode or on_focus:
         color = (84, 84, 84)
     font = pygame.font.Font(font_path, size)
