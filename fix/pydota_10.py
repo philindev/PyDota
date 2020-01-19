@@ -1,6 +1,6 @@
 from math import sqrt
 import pygame
-import cutter
+import fix.cutter as cutter
 from random import randint
 
 pygame.init()
@@ -21,8 +21,7 @@ class Player:
         self.red, self.h_green, self.p_green = (200, 100, 0), (0, 255, 0), (0, 200, 0)
         self.full_health, self.health, self.damage, self.hit_range = 500, 500, 10, 100
         self.en_pos_list = (-10, -10)
-
-        self.sprite = cutter.AnimatedSprite(pygame.image.load('GG.png'), scale_x=70, scale_y=70)
+        self.sprite = cutter.AnimatedSprite(pygame.image.load('GG.png'), scale_x=70, scale_y=70, pos=self.spawn_point)
 
     def draw(self):
         # pygame.draw.line(screen, (0, 255, 0), self.cords, (self.en_pos_list[0], self.en_pos_list[1]), 1)
@@ -218,7 +217,8 @@ class Creep:
     def collision(self):
         return self.RAD
 
-    p = []
+
+p = []
 
 
 clock = pygame.time.Clock()

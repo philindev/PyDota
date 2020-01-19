@@ -20,6 +20,9 @@ class Map:
     def __init__(self):
         self.block_size = 280
         self.land = Map.land
+        self.image = pg.Surface((3360, 3360))
+        self.rect = self.image.get_rect()
+
 
     @staticmethod
     def double_map(land):
@@ -34,15 +37,20 @@ class Map:
     def create_map(self, all_sprites, focused_player):
         land = self.land
         x, y = 0, 0
+        render_map = pg.Surface((3360, 3360))
         for row in land:
             for element in row:
                 if element == "В":
-                    Water((x, y), all_sprites, focused_player)
+                    w = Water((x, y), all_sprites, focused_player)
+                    render_map.blit(w.image, w.rect)
                 elif element == 'З':
-                    Soil((x, y), all_sprites, focused_player)
+                    s = Soil((x, y), all_sprites, focused_player)
+                    render_map.blit(s.image, s.rect)
                 x += self.block_size
             x = 0
             y += self.block_size
+        self.image = render_map
+        self.rect = render_map.get_rect()
 
     def throught_the_errors(self, land):
 

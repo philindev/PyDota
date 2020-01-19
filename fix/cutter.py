@@ -1,8 +1,24 @@
 import pygame
+from pygame.math import Vector2
+
+
+class Unit(pygame.sprite.Sprite):
+
+    def __init__(self, pos, *groups):
+        super().__init__(*groups)
+        self.image = pygame.Surface((30, 30))
+        self.image.fill(pygame.Color(200, 50, 70))
+        self.rect = self.image.get_rect(center=pos)
+        self.pos = Vector2(pos)
+        self.vel = Vector2(0, 0)
+
+    def update(self):
+        self.pos += self.vel
+        self.rect.center = self.pos
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
-    def __init__(self, sheet, columns=3, rows=4, scale_x=50, scale_y=50):
+    def __init__(self, sheet, columns=3, rows=4, scale_x=50, scale_y=50, **kwargs):
         pygame.sprite.Sprite.__init__(self)
         self.frames = []
 
@@ -10,7 +26,6 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.cur_frame = 0
 
         self.image = self.frames[0][1]
-        self.rect = self.image.get_rect()
         self.time = 0
 
         self.count = 0
@@ -47,3 +62,4 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.image = self.frames[row][self.cur_frame]
         if not x and not y:
             self.image = self.frames[0][1]
+
