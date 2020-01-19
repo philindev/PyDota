@@ -1,15 +1,18 @@
 import pygame
+from math import sqrt
 
 
 class Heal:
     def __init__(self, x, y, screen):
-        self.radius = 70
+        self.radius = 150
         self.sprite = AnimatedSprite(pygame.image.load("HealSprite.png"), 8, 8)  # норм выглядит при time.delay(30)
         self.destroyable = False
         self.screen = screen
+        self.heal = 10  # +5 здоровья в сек
 
         self.sprite.rect.x = x
         self.sprite.rect.y = y
+        self.count = 0
 
     def update(self, x=0, y=0):
         self.sprite.update()
@@ -20,6 +23,13 @@ class Heal:
             self.sprite.rect.y += y
 
         self.screen.blit(self.sprite.image, self.sprite.rect)
+
+    def help(self, pers):
+        self.count += 1
+        if int(sqrt((self.sprite.rect.center[0] - pers[0]) ** 2 + (self.sprite.rect.center[1] - pers[1]) ** 2)) < self.radius:
+            if self.count % 5 == 0:
+                return self.heal
+        return 0
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
@@ -49,23 +59,23 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.image = self.frames[self.cur_frame]
 
 
+
 # Пример использования
 
 # pygame.init()
 # size = width, height = 800, 600
 # screen = pygame.display.set_mode(size)
-# 
+#
 # sp = Heal(50, 300, screen)
-# 
+#
 # pygame.display.flip()
 # # ожидание закрытия окна:
 # running = True
-# 
+#
 # while running:
 #     for event in pygame.event.get():
 #         if event.type == pygame.QUIT:
 #             running = False
-#     pygame.time.delay(30)
 #     screen.fill((0, 0, 0))
 #     sp.update()
 #     pygame.display.flip()
