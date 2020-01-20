@@ -1,59 +1,132 @@
 import pygame as pg
-from pygame.math import Vector2
 from __init__ import load_image
 from random import randint
 from math import sqrt
 import fix.cutter as cutter
 
 
-class Edge(pg.sprite.Sprite):
-
-    def __init__(self, pos, *groups):
-        super().__init__(groups[0])
-        try:
-            self.image = pg.Surface((280, 280))
-            x, y = 0, 0
-            for _ in range(4):
-                for __ in range(4):
-                    a = randint(1, 5)
-                    if a == 3 or a == 5:
-                        self.image.blit(pg.transform.scale(pg.image.load(f'grass/{randint(4, 11)}.jpeg'), (70, 70)),
-                                        (x, y, 70, 70))
-                        x += 70
-                        continue
-                    self.image.blit(pg.transform.scale(pg.image.load(f'grass/{randint(1, 3)}.jpeg'), (70, 70)),
-                                                                                                      (x, y, 70, 70))
-                    x += 70
-                x = 0
-                y += 70
-
-        except pg.error:
-            self.image = pg.Surface((280, 280))
-            self.image.fill(pg.Color('brown'))
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = pos
-
-
 class Soil(pg.sprite.Sprite):
 
-    def __init__(self, pos, *groups):
-        super().__init__(groups[0])
+    def __init__(self, pos, groups, **kwargs):
+        super().__init__(groups)
         try:
-            self.image = pg.Surface((280, 280))
-            x, y = 0, 0
-            for _ in range(4):
-                for __ in range(4):
-                    a = randint(1, 5)
-                    if a == 3 or a == 5:
-                        self.image.blit(pg.transform.scale(pg.image.load(f'grass/{randint(4, 11)}.jpeg'), (70, 70)),
-                                        (x, y, 70, 70))
+            if "type" in kwargs.keys() and kwargs["type"] == 'solid':
+                self.image = pg.Surface((280, 280))
+                x, y = 0, 0
+                for _ in range(4):
+                    for __ in range(4):
+                        a = randint(1, 5)
+                        if a == 3 or a == 5:
+                            self.image.blit(pg.transform.scale(pg.image.load(f'grass/{randint(4, 11)}.jpeg'), (70, 70)),
+                                            (x, y, 70, 70))
+                            x += 70
+                            continue
+                        self.image.blit(pg.transform.scale(pg.image.load(f'grass/{randint(1, 3)}.jpeg'), (70, 70)),
+                                                                                                          (x, y, 70, 70))
                         x += 70
-                        continue
-                    self.image.blit(pg.transform.scale(pg.image.load(f'grass/{randint(1, 3)}.jpeg'), (70, 70)),
-                                                                                                      (x, y, 70, 70))
-                    x += 70
-                x = 0
-                y += 70
+                    x = 0
+                    y += 70
+            elif "type" in kwargs.keys() and kwargs["type"] == 'edge':
+                self.image = pg.Surface((280, 280))
+                if kwargs["side"] == 'left':
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/left.png'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/left.png'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == 'bottom':
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/bottom.png'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/bottom.png'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == 'top':
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/top.png'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/top.png'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == 'right':
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/right.png'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/right.png'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == "corner_right_bottom":
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/corner_down1.png'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == "corner_left_bottom":
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/corner_down.png'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == "angle_left_bottom":
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/left.png'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/corner1.png'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/top.png'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == "angle_left_top":
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/corner_top.png'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == "corner_right_top":
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/corner_top1.png'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == "angle_right_top":
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/corner2.png'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/bottom.png'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/right.png'), (140, 140)),
+                                    (0, 140, 140, 140))
+                elif kwargs["side"] == "angle_right_bottom":
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/corner_down1.png'), (140, 140)),
+                                    (0, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 0, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (140, 140, 140, 140))
+                    self.image.blit(pg.transform.scale(pg.image.load(f'forest/water.jpeg'), (140, 140)),
+                                    (0, 140, 140, 140))
 
         except pg.error:
             self.image = pg.Surface((280, 280))
@@ -67,7 +140,7 @@ class Water(pg.sprite.Sprite):
     def __init__(self, pos, *groups):
         super().__init__(groups[0])
         try:
-            self.image = pg.transform.scale(load_image('game/texuters/Water.jpg'), (280, 280))
+            self.image = pg.transform.scale(load_image('forest/water.jpeg'), (280, 280))
         except pg.error:
             self.image = pg.Surface((280, 280))
             self.image.fill(pg.Color('dodgerblue1'))
@@ -241,22 +314,6 @@ class Creep:
                 self.y_add = 5
             elif dy < -50:
                 self.y_add = -5
-
-        # for i in range(len(fr_pos_list)):
-        #     if i != ind:
-        #         if sqrt((self.cords[0] - fr_pos_list[i][0]) ** 2 + (self.cords[1] - fr_pos_list[i][1]) ** 2) <= r[i] + self.RAD:
-        #             if self.cords[0] <= fr_pos_list[i][0] and self.cords[1] <= fr_pos_list[i][1]:
-        #                 self.x_add -= 10
-        #                 self.y_add -= 10
-        #             elif self.cords[0] >= fr_pos_list[i][0] and self.cords[1] <= fr_pos_list[i][1]:
-        #                 self.x_add += 10
-        #                 self.y_add -= 10
-        #             elif self.cords[0] >= fr_pos_list[i][0] and self.cords[1] >= fr_pos_list[i][1]:
-        #                 self.x_add += 10
-        #                 self.y_add += 10
-        #             elif self.cords[0] <= fr_pos_list[i][0] and self.cords[1] >= fr_pos_list[i][1]:
-        #                 self.y_add -= 10
-        #                 self.x_add += 10
 
         self.cords[0] += int(self.x_add * self.boost)
         self.cords[1] += int(self.y_add * self.boost)
