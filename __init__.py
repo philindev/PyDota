@@ -34,7 +34,7 @@ def load_image(name, colorkey=None):
 
 def btn(x: int, y: int, screen: pygame.Surface, icon_path: str, shadow: str, text: str,
         mode=False, on_focus=False,
-        font_path=r"game\fonts\iFlash 705.ttf",
+        font_path=r"game/fonts/iFlash 705.ttf",
         size=24, btn_size=None):
 
     btn_size = btn_size
@@ -59,8 +59,8 @@ def btn(x: int, y: int, screen: pygame.Surface, icon_path: str, shadow: str, tex
 class Menu:
     def __init__(self, width, height):
         self.size = width, height
-        self.image = pygame.transform.scale(load_image("game\menu_icons\menu_image1.png"), (width, height))
-        self.favicon_image = load_image("game\menu_icons\main_icon.png")
+        self.image = pygame.transform.scale(load_image("game/menu_icons/menu_image1.png"), (width, height))
+        self.favicon_image = load_image("game/menu_icons/main_icon.png")
         self.mode = [False, False, False]
         self.on_focus = [False, False, False]
         self.center = width * 5 // 6
@@ -78,11 +78,11 @@ class Menu:
         screen.blit(self.favicon(), (center - 40, y))
         x = center - 140
         y += 110
-        texts = ["Start", "Settings", "Exit"]
+        texts = ["Start", "Exit"]
         for i in range(len(texts)):
             btn(x, y, screen,
-                "game\menu_icons\TextBlock1.png",
-                "game\menu_icons\ShadowTextBlock1.png",
+                "game/menu_icons/TextBlock1.png",
+                "game/menu_icons/ShadowTextBlock1.png",
                 texts[i],
                 mode=self.mode[i],
                 on_focus=self.on_focus[i])
