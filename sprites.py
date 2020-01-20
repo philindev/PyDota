@@ -203,6 +203,11 @@ class Player:
         self.x_add = self.x_line[1] - self.x_line[0]
         self.y_add = self.y_line[1] - self.y_line[0]
 
+        if abs(dx < 20) and dy > 20:
+            self.y_add = 5
+        elif abs(dx) < 20 and dy < -20:
+            self.y_add = -5
+
         for _ in items:
             _.rect.x -= int(self.x_add * self.boost * 0.75)
             _.rect.y -= int(self.y_add * self.boost * 0.75)
@@ -238,19 +243,14 @@ class Creep:
         if col:
             self.team_color = (255, 0, 0)
             self.spawn_point = pos
-
-            name = 'Soldier\\' + str(randint(1, 34)) + '.png'
-
+            self.h_b = (0, 255, 0)
         else:
             self.team_color = (0, 0, 255)
             self.spawn_point = pos
-            name = 'Enemy\\' + str(randint(1, 36)) + '.png'
-
-        self.sprite = cutter.AnimatedSprite(pg.image.load(name))
+            self.h_b = (255, 0, 0)
 
         self.RAD = 15
 
-        self.green = (0, 255, 0)
 
         self.view = 300
         self.hit_range = 85
@@ -263,14 +263,19 @@ class Creep:
         self.x_add, self.y_add = 0, 0
 
     def draw(self):
-        size = self.sprite.rect.size
-        self.screen.blit(self.sprite.image, (self.cords[0] - size[0] // 2, self.cords[1] - size[1] // 2, *size))
+        pygame1 = pg
+        pygame1.draw.circle(self.screen, self.team_color, self.cords, self.RAD)
+        pygame1.draw.circle(self.screen, (255, 255, 0), self.cords, self.view, 1)
+        pygame1.draw.circle(self.screen, (255, 0, 0), self.cords, self.hit_range, 1)
 
-    def move(self, en_pos_list, fr_pos_list, r, ind):
+        pygame1.draw.rect(self.screen, (0, 255, 0), (self.cords[0] - self.RAD, self.cords[1] - self.RAD, self.RAD * 2, self.RAD * 2), 1)
+
+    def move(self, en_tow_pos, en_pos_list):
         self.boost = 2
         self.dist, self.x_line, self.y_line = [], [], []
         self.in_view = []
         self.en_pos_list = en_pos_list
+        self.en_tow_pos = en_tow_pos
         self.en_pos_list = list(map(list, self.en_pos_list))
         self.x_add = 0
         self.y_add = 0
@@ -281,7 +286,7 @@ class Creep:
 
         for j in range(len(self.in_view)):
             self.dist.append(
-                sqrt((self.cords[0] - self.in_view[j][0]) ** 2 + (self.cords[1] - self.in_view[j][1]) ** 2))
+                abs(self.cords[0] - self.in_view[j][0]) + abs(self.cords[1] - self.in_view[j][1]))
 
         if len(self.in_view) > 0:
             mnind = self.dist.index(min(self.dist))
@@ -315,16 +320,51 @@ class Creep:
             elif dy < -50:
                 self.y_add = -5
 
+        else:
+            for j in range(len(self.en_tow_pos)):
+                self.dist.append(
+                    abs(self.cords[0] - self.en_tow_pos[j][0]) + abs(self.cords[1] - self.en_tow_pos[j][1]))
+
+            mnind = self.dist.index(min(self.dist))
+
+            dx = self.en_tow_pos[mnind][0] - self.cords[0]
+            dy = self.en_tow_pos[mnind][1] - self.cords[1]
+            if dx == 0:
+                dx = -1
+            k = (self.en_tow_pos[mnind][1] - self.cords[1]) / dx
+            b = self.cords[1] - k * self.cords[0]
+
+            xslide = dx / 100
+
+            if abs(dx) > 40:
+                for d in range(1, 3):
+                    x = d * xslide
+                    self.x_line.append(x)
+                    y = k * x + b
+                    self.y_line.append(y)
+            else:
+                self.x_line.append(1)
+                self.y_line.append(1)
+                self.x_line.append(1)
+                self.y_line.append(1)
+
+            self.x_add = self.x_line[1] - self.x_line[0]
+            self.y_add = self.y_line[1] - self.y_line[0]
+
+            if dy > 50:
+                self.y_add = 5
+            elif dy < -50:
+                self.y_add = -5
+
         self.cords[0] += int(self.x_add * self.boost)
         self.cords[1] += int(self.y_add * self.boost)
 
-        self.sprite.update(int(self.x_add * self.boost), int(self.y_add * self.boost))
 
     def attack(self):
         return [self.damage, self.hit_range]
 
     def health_bar(self):
-        pg.draw.rect(self.screen, self.green, (self.cords[0] - self.RAD,
+        pg.draw.rect(self.screen, self.h_b, (self.cords[0] - self.RAD,
                                               self.cords[1] - self.RAD - self.RAD / 5 - self.RAD / 4,
                                               (self.RAD * 2) * (self.health / self.full_health),
                                               self.RAD / 4),
@@ -346,3 +386,131 @@ class Creep:
 
     def collision(self):
         return self.RAD
+
+    def add_screen(self, screen):
+        self.screen = screen
+
+
+class Giant(Creep):
+    def __init__(self, col, pos):
+        super(Giant, self).__init__(col, pos)
+        self.RAD = 30
+
+    def add_screen(self, screen):
+        self.screen = screen
+
+
+    def move_g(self, en_pos_list):
+        self.boost = 2
+        self.dist, self.x_line, self.y_line = [], [], []
+        self.in_view = []
+        self.en_pos_list = en_pos_list
+        self.en_pos_list = list(map(list, self.en_pos_list))
+        self.x_add = 0
+        self.y_add = 0
+
+        for j in range(len(self.en_pos_list)):
+            self.dist.append(
+                abs(self.cords[0] - self.en_pos_list[j][0]) + abs(self.cords[1] - self.en_pos_list[j][1]))
+
+        mnind = self.dist.index(min(self.dist))
+
+        dx = self.en_pos_list[mnind][0] - self.cords[0]
+        dy = self.en_pos_list[mnind][1] - self.cords[1]
+        if dx == 0:
+            dx = -1
+        k = (self.en_pos_list[mnind][1] - self.cords[1]) / dx
+        b = self.cords[1] - k * self.cords[0]
+
+        xslide = dx / 100
+
+        if abs(dx) > 40:
+            for d in range(1, 3):
+                x = d * xslide
+                self.x_line.append(x)
+                y = k * x + b
+                self.y_line.append(y)
+        else:
+            self.x_line.append(1)
+            self.y_line.append(1)
+            self.x_line.append(1)
+            self.y_line.append(1)
+
+        self.x_add = self.x_line[1] - self.x_line[0]
+        self.y_add = self.y_line[1] - self.y_line[0]
+
+        if dy > 50:
+            self.y_add = 5
+        elif dy < -50:
+            self.y_add = -5
+
+        self.cords[0] += int(self.x_add * self.boost)
+        self.cords[1] += int(self.y_add * self.boost)
+
+
+class Boss(Creep):
+    def __init__(self, pos):
+        super(Boss, self).__init__(False, pos)
+        self.team_color = (0, 0, 255)
+        self.spawn_point = pos
+        self.RAD = 40
+        self.view = 500
+        self.hit_range = 100
+        self.full_health = 500
+        self.health = 500
+        self.damage = 30
+
+    def hp(self):
+        return self.health / self.full_health
+
+    def heal(self, heal_location, heal):
+        if int(sqrt((self.cords[0] - heal_location[0]) ** 2 + (self.cords[1] - heal_location[1]) ** 2)) < heal[1]:
+            if self.health < self.full_health:
+                self.health += heal[0]
+
+    def retreat(self, en_pos_list):
+        self.boost = 2
+        self.dist, self.x_line, self.y_line = [], [], []
+        self.in_view = []
+        self.en_pos_list = en_pos_list
+        self.en_pos_list = list(map(list, self.en_pos_list))
+        self.x_add = 0
+        self.y_add = 0
+
+        for j in range(len(self.en_pos_list)):
+            self.dist.append(
+                abs(self.cords[0] - self.en_pos_list[j][0]) + abs(self.cords[1] - self.en_pos_list[j][1]))
+
+        mnind = self.dist.index(min(self.dist))
+
+        dx = self.en_pos_list[mnind][0] - self.cords[0]
+        dy = self.en_pos_list[mnind][1] - self.cords[1]
+        if dx == 0:
+            dx = -1
+        k = (self.en_pos_list[mnind][1] - self.cords[1]) / dx
+        b = self.cords[1] - k * self.cords[0]
+
+        xslide = dx / 100
+
+        if abs(dx) > 40:
+            for d in range(1, 3):
+                x = d * xslide
+                self.x_line.append(x)
+                y = k * x + b
+                self.y_line.append(y)
+        else:
+            self.x_line.append(1)
+            self.y_line.append(1)
+            self.x_line.append(1)
+            self.y_line.append(1)
+
+        self.x_add = self.x_line[1] - self.x_line[0]
+        self.y_add = self.y_line[1] - self.y_line[0]
+
+        if dy > 50:
+            self.y_add = 5
+        elif dy < -50:
+            self.y_add = -5
+
+        self.cords[0] += int(self.x_add * self.boost)
+        self.cords[1] += int(self.y_add * self.boost)
