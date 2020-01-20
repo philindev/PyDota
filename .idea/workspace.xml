@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7c1905e7-7975-40b0-b059-9a7a67db521b" name="Default Changelist" comment="Создал класс Map который должен генерировать и отрисовывать карту.&#10;&#10;Также у при создании класса, можно указать доп.атрибут mode=True который откроет меню редактирования карты.">
+      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="PyDota" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\MI\Desktop\PyDota\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VHz0N0bYWPSVTMFKKzaKmrwTyJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MI\Desktop\PyDota\game\texuters" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.__init__">
+    <configuration name="PG" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PyDota" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PG.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PyDota" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="map" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PyDota" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/map.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pydota_10" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PyDota" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/fix" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fix/pydota_10.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sprites" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PyDota" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sprites.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.__init__" />
+        <item itemvalue="Python.map" />
+        <item itemvalue="Python.PG" />
+        <item itemvalue="Python.sprites" />
+        <item itemvalue="Python.pydota_10" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7c1905e7-7975-40b0-b059-9a7a67db521b" name="Default Changelist" comment="" />
+      <created>1576924585921</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576924585921</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Создал класс Map который должен генерировать и отрисовывать карту.&#10;&#10;Также у при создании класса, можно указать доп.атрибут mode=True который откроет меню редактирования карты.">
+      <created>1576930317871</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1576930317871</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Создал класс Map который должен генерировать и отрисовывать карту.&#10;&#10;Также у при создании класса, можно указать доп.атрибут mode=True который откроет меню редактирования карты." />
+    <option name="LAST_COMMIT_MESSAGE" value="Создал класс Map который должен генерировать и отрисовывать карту.&#10;&#10;Также у при создании класса, можно указать доп.атрибут mode=True который откроет меню редактирования карты." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="251" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1577884380035">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="251" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1577884380035" />
+    <state x="599" y="102" key="CommitChangelistDialog2" timestamp="1579515005284">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="399" y="97" key="CommitChangelistDialog2/0.0.1280.1024@0.0.1280.1024" timestamp="1576930316727" />
+    <state x="599" y="102" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1579515005284" />
+    <state x="452" y="128" key="FileChooserDialogImpl" timestamp="1579418223417">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="452" y="128" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1579418223417" />
+    <state width="476" height="952" key="GridCell.Tab.0.bottom" timestamp="1579523845131">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="650" height="276" key="GridCell.Tab.0.bottom/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811643" />
+    <state width="476" height="952" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
+    <state width="476" height="952" key="GridCell.Tab.0.center" timestamp="1579523845131">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="650" height="276" key="GridCell.Tab.0.center/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811643" />
+    <state width="476" height="952" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
+    <state width="476" height="952" key="GridCell.Tab.0.left" timestamp="1579523845131">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="650" height="276" key="GridCell.Tab.0.left/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811642" />
+    <state width="476" height="952" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
+    <state width="476" height="952" key="GridCell.Tab.0.right" timestamp="1579523845131">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="650" height="276" key="GridCell.Tab.0.right/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811643" />
+    <state width="476" height="952" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
+    <state width="1877" height="364" key="GridCell.Tab.1.bottom" timestamp="1579523843148">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="364" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
+    <state width="1877" height="364" key="GridCell.Tab.1.center" timestamp="1579523843148">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="364" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
+    <state width="1877" height="364" key="GridCell.Tab.1.left" timestamp="1579523843148">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="364" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
+    <state width="1877" height="364" key="GridCell.Tab.1.right" timestamp="1579523843148">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="364" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
+    <state x="464" y="248" key="Vcs.Push.Dialog.v2" timestamp="1576930388771">
+      <screen x="0" y="0" width="1280" height="1024" />
+    </state>
+    <state x="464" y="248" key="Vcs.Push.Dialog.v2/0.0.1280.1024@0.0.1280.1024" timestamp="1576930388771" />
+    <state x="357" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1579507554769">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="238" y="360" key="com.intellij.ide.util.TipDialog/0.0.1280.1024@0.0.1280.1024" timestamp="1576924800456" />
+    <state x="357" y="380" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1579507554769" />
+    <state x="695" y="332" key="git4idea.merge.GitPullDialog" timestamp="1578047816340">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="695" y="332" key="git4idea.merge.GitPullDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1578047816340" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1579004088363">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1579004088363" />
+  </component>
+</project>
