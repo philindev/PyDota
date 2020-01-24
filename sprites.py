@@ -178,7 +178,16 @@ class Player:
     def set_point_position(self, pos):
         self.en_pos_list = pos
 
-    def move(self, items, beings):
+    def move(self, items, beings, mask):
+        go = False
+        for x, y in mask:
+            if x <= self.en_pos_list[0] <= x + 280 and y <= self.en_pos_list[1] <= y + 280:
+                go = True
+                break
+
+        if not go:
+            return
+
         self.dist, self.x_line, self.y_line = [], [], []
 
         dx = self.en_pos_list[0] - self.cords[0]
@@ -215,19 +224,25 @@ class Player:
             _.rect.x -= int(self.x_add * self.boost * 0.75)
             _.rect.y -= int(self.y_add * self.boost * 0.75)
 
+        count = 0
         for creatures in beings:
-            for _ in creatures:
-                _.cords[0] -= int(self.x_add * self.boost * 0.75)
-                _.cords[1] -= int(self.y_add * self.boost * 0.75)
-                _.spawn_point[0] -= int(self.x_add * self.boost * 0.75)
-                _.spawn_point[1] -= int(self.y_add * self.boost * 0.75)
+            count += 1
+            if count == 4:
+                for cords in creatures:
+                    cords[0] -= int(self.x_add * self.boost * 0.75)
+                    cords[1] -= int(self.y_add * self.boost * 0.75)
+            else:
+                for _ in creatures:
+                    _.cords[0] -= int(self.x_add * self.boost * 0.75)
+                    _.cords[1] -= int(self.y_add * self.boost * 0.75)
+                    _.spawn_point[0] -= int(self.x_add * self.boost * 0.75)
+                    _.spawn_point[1] -= int(self.y_add * self.boost * 0.75)
 
         self.en_pos_list[0] -= int(self.x_add * self.boost * 0.75)
         self.en_pos_list[1] -= int(self.y_add * self.boost * 0.75)
 
         self.extra_x += int(self.x_add * self.boost * 0.75)
         self.extra_y += int(self.y_add * self.boost * 0.75)
-        print(self.extra_x)
 
         self.sprite.update(int(self.x_add * self.boost), int(self.y_add * self.boost))
 
@@ -240,7 +255,7 @@ class Player:
             self.health = self.full_health
             self.cords = self.spawn_point.copy()
             self.en_pos_list = self.spawn_point.copy()
-            draw_again((self.extra_y, self.extra_y), self.boost)
+            draw_again((self.extra_x, self.extra_y), self.boost)
 
     def attack(self):
         return [self.damage, self.hit_range]

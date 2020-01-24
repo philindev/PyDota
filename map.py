@@ -26,7 +26,6 @@ class Map:
         self.image = pg.Surface((3360, 3360))
         self.rect = self.image.get_rect()
 
-
     @staticmethod
     def double_map(land):
         output = [''] * 9
@@ -43,6 +42,7 @@ class Map:
         pprint(land)
 
         x, y = 0, 0
+        mask = list()
         render_map = pg.Surface((len(land[0]) * 280, len(land) * 280))
 
         for row in land:
@@ -53,6 +53,8 @@ class Map:
                 elif element == 'З':
                     s = Soil((x, y), all_sprites, type="solid")
                     render_map.blit(s.image, s.rect)
+                    # x1, x2, y1, y2
+                    mask.append([x - 720, y - 2200])
                 elif element == "Д":
                     s = Soil((x, y), all_sprites, type="edge", side="corner_right_bottom")
                     render_map.blit(s.image, s.rect)
@@ -94,6 +96,7 @@ class Map:
         pos = -720, -2200
         self.rect = render_map.get_rect()
         self.rect.x, self.rect.y = pos
+        return mask
 
     def throught_the_errors(self, land):
 
@@ -112,3 +115,6 @@ class Map:
 
     def add_screen(self, screen):
         self.screen = screen
+
+    def print_pos(self):
+        print(self.rect.x, self.rect.y)

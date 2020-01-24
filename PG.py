@@ -1,9 +1,9 @@
+from pprint import pprint
+
 import pygame as pg
 from pygame.math import Vector2
 
 from map import Map
-import Buildings
-import fix.cutter as cutter
 from sprites import Player
 from sprites import Creep
 
@@ -40,6 +40,7 @@ class Camera:
 def main():
     pg.init()
     screen = pg.display.set_mode((0, 0), pg.FULLSCREEN)
+    print(str(pg.display.Info().current_w) + ' x ' + str(pg.display.Info().current_h) + " разрешение экарана")
 
     clock = pg.time.Clock()
     all_sprites = pg.sprite.Group()
@@ -50,7 +51,7 @@ def main():
 
     world = Map()
     world.add_screen(screen)
-    world.create_map(all_sprites, player)
+    allowed = world.create_map(all_sprites, player)
 
     team_blue = list()
     team_red = list()
@@ -59,31 +60,36 @@ def main():
     creep_s_kd = 0
     creep_kd = 0
 
-
     spawn_red_points = [[i, j] for i in range(0, 200, 50) for j in range(0, 200, 50)]
     spawn_blue_points = [[i, j] for i in range(0, 200, 50) for j in range(0, 200, 50)]
 
     for _ in spawn_red_points:
-        extra_x, extra_y = pg.display.Info().current_w + 280 * 2, pg.display.Info().current_h - 280 * 3
+        extra_x, extra_y = 1920 + 280 * 2, 1080 - 280 * 3
         unit = Creep(True, [_[0] + extra_x // 2, _[1] + extra_y // 2])
         unit.add_screen(screen)
         team_red.append(unit)
 
     for _ in spawn_blue_points:
-        extra_x, extra_y = pg.display.Info().current_w + 280 * 2, pg.display.Info().current_h // 2
+        extra_x, extra_y = 2200, - 1000
         unit = Creep(False, [_[0] + extra_x, _[1] + extra_y])
         unit.add_screen(screen)
         team_blue.append(unit)
 
-    beings = [team_blue, team_red, towers]
+    beings = [team_blue, team_red, towers, allowed]
     sprite_objects.append(world)
 
     def draw_again_after_death(cords, boost):
         x, y = cords
-        print(x, y)
         world.rect.x += x
         world.rect.y += y
+        count = 0
         for obj in beings:
+            count += 1
+            if count == 4:
+                for i in obj:
+                    i[0] += x
+                    i[1] += y
+                continue
             for unit in obj:
                 unit.cords[0] += x
                 unit.cords[1] += y
@@ -104,6 +110,8 @@ def main():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_F11:
                     return
+                if event.key == pg.K_F10:
+                    world.print_pos()
 
         screen.fill((30, 30, 30))
 
@@ -120,7 +128,8 @@ def main():
         creep_kd += 1
 
         if fill:
-            player.move(sprite_objects, beings)
+            player.move(sprite_objects, beings, allowed)
+
 
         for _ in sprite_objects:
             screen.blit(_.image, _.rect)
