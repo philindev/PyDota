@@ -4,7 +4,8 @@ from pygame.math import Vector2
 from map import Map
 from sprites import Player
 from sprites import Creep, Giant
-from Buildings.Buildings import RadiusTower
+from Buildings.Buildings import RadiusTower, MainTower, PointTower
+from Buildings.Help import Heal
 
 
 def to_convenient_cords(x, y):
@@ -56,15 +57,20 @@ def main():
     team_red = list()
     towers = list()
 
-    heal1 = RadiusTower(1920 - 280 * 4, 1080 - 280 * 4, screen)
+    heal1 = PointTower(1920 - 280 * 4, 1080 - 280 * 4, screen)
     damage1 = heal1.update()
     heal2 = RadiusTower(1920, 1080 - 280 * 5, screen)
     damage2 = heal2.update()
 
-    dire1 = RadiusTower(1920 - 280 - 70, 1080 - 280 * 7 - 70, screen)
+    dire1 = PointTower(1920 - 280 - 70, 1080 - 280 * 7 - 70, screen)
     ddamage1 = dire1.update()
-    dire2 = RadiusTower(1920 + 280 * 2, 1080 - 280 * 8, screen)
+    dire2 = RadiusTower(1920 + 280 * 2, 1080 - 280 * 8 + 70, screen)
     ddamage2 = dire2.update()
+
+    light = MainTower(1920 - 280 * 4 - 140, 1080 - 280 * 2, screen)
+    dire = MainTower(1920 + 280 * 2, 1080 - 280 * 8 - 140, screen)
+
+    heal_light = Heal(1920 - 280 * 4, 1080 - 280 * 3, screen)
 
     creep_s_kd = 0
     creep_kd = 0
@@ -99,10 +105,19 @@ def main():
     sprite_objects.append(heal2)
     sprite_objects.append(dire1)
     sprite_objects.append(dire2)
+    sprite_objects.append(light)
+    sprite_objects.append(dire)
+    sprite_objects.append(heal_light)
 
     def draw_again_after_death(cords, boost):
         x, y = cords
+        count = 0
         for _ in sprite_objects:
+            count += 1
+            if count == 8 or count == 9:
+                _.sprite.image.get_rect().x += x
+                _.sprite.image.get_rect().y += y
+                continue
             _.rect.y += y
             _.rect.x += x
         count = 0
@@ -153,10 +168,15 @@ def main():
         if fill:
             player.move(sprite_objects, beings, allowed)
 
+        count = 0
         for _ in sprite_objects:
+            count += 1
+            if count == 9 or count == 8:
+                screen.blit(_.sprite.image, _.sprite.image.get_rect())
+                continue
             screen.blit(_.image, _.rect)
 
-        dire1.attack(team_red, team_red[0].sprite.rect.center)
+        dire1.attack(team_red)
         ddamage1 = dire1.update()
         dire2.attack(team_red, team_red[0].sprite.rect.center)
         ddamage2 = dire2.update()
@@ -180,7 +200,7 @@ def main():
             else:
                 unit.take_damage_f_pl(damage2[0], damage2[1])
 
-        heal1.attack(team_blue, team_blue[0].sprite.rect.center)
+        heal1.attack(team_blue)
         damage1 = heal1.update()
         heal2.attack(team_blue, team_blue[0].sprite.rect.center)
         damage2 = heal2.update()

@@ -220,7 +220,13 @@ class Player:
         elif abs(dx) < 20 and dy < -20:
             self.y_add = -5
 
+        count = 0
         for _ in items:
+            count += 1
+            if count == 8 or count == 9:
+                _.sprite.image.get_rect().x -= int(self.x_add * self.boost * 0.75)
+                _.sprite.image.get_rect().y -= int(self.y_add * self.boost * 0.75)
+                continue
             _.rect.x -= int(self.x_add * self.boost * 0.75)
             _.rect.y -= int(self.y_add * self.boost * 0.75)
 

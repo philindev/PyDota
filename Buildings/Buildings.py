@@ -103,9 +103,6 @@ class Bomb(pygame.sprite.Sprite):
 
         self.count = 0
 
-
-
-
     def update(self):
         self.count += 1
         if self.count % 20 == 0:
@@ -202,7 +199,7 @@ class Bullet(pygame.sprite.Sprite):
 
 class PointTower(_AAttackTower):
     def __init__(self, x, y, screen):
-        super().__init__(x, y, screen, xp=400, damage=100, radius=500, sprite='PointTower.png')
+        super().__init__(x, y, screen, xp=400, damage=100, radius=500, sprite='Buildings/PointTower.png')
         self.bullet = None
 
     def attack(self, coor):
@@ -221,41 +218,8 @@ class PointTower(_AAttackTower):
         if self.bullet != None:
             if self.bullet.update():
                 self.bullet = None
-        # else:
-        #     # if self.dead.__class__.__name__ == 'TowerBoom':
-        #     #     self.screen.blit(self.dead.surface.image, self.rect)
-        #     #     if self.dead.update(self.count):
-        #     #         self.dead = Fire(pygame.image.load('fire.png', 8, 8))
-        #     # else:
-        #     #     self.dead.update()
-        #     if self.image.update():
-        #         del self
 
 
-class ShopTower(_ABuild):
+class MainTower(_AAttackTower):
     def __init__(self, x, y, screen):
-        super().__init__(x, y, screen, radius=20, sprite='Shop.png')
-
-
-
-# pygame.init()
-# size = width, height = 800, 600
-# screen = pygame.display.set_mode(size)
-#
-# sp = [Bomb(50, 300, screen)]
-#
-# pygame.display.flip()
-# # ожидание закрытия окна:
-# running = True
-#
-# while running:
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             running = False
-#     screen.fill((0, 0, 0))
-#     for bomb in sp:
-#         if bomb.update():
-#             sp.remove(bomb)
-#
-#     pygame.display.flip()
-# quit()
+        super().__init__(x, y, screen, radius=20, sprite='Buildings/Shop.png', xp=1000, damage=0)

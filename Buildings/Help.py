@@ -5,7 +5,7 @@ from math import sqrt
 class Heal:
     def __init__(self, x, y, screen):
         self.radius = 150
-        self.sprite = AnimatedSprite(pygame.image.load("HealSprite.png"), 8, 8)  # норм выглядит при time.delay(30)
+        self.sprite = AnimatedSprite(pygame.image.load("Buildings/HealSprite.png"), 8, 8)  # норм выглядит при time.delay(30)
         self.destroyable = False
         self.screen = screen
         self.heal = 10  # +5 здоровья в сек
