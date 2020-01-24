@@ -62,7 +62,7 @@ class RadiusTower(_AAttackTower):
             team_blue[i].take_damage_f_pl(damage[0], damage[1])
     """
     def __init__(self, x, y, screen):
-        super().__init__(x, y, screen, xp=100, damage=100, radius=500, sprite='RadiusTower.png')
+        super().__init__(x, y, screen, xp=100, damage=100, radius=500, sprite='Buildings/RadiusTower.png')
 
         self.bomb = None
 
@@ -230,11 +230,6 @@ class PointTower(_AAttackTower):
         #     #     self.dead.update()
         #     if self.image.update():
         #         del self
-
-
-
-
-
 
 
 class ShopTower(_ABuild):

@@ -1,6 +1,6 @@
 from math import sqrt
 import pygame
-import cutter
+import fix.cutter as cutter
 from random import randint
 import Buildings
 
@@ -95,12 +95,12 @@ class Creep:
             self.team_color = (255, 0, 0)
             self.spawn_point = pos
 
-            name = 'Soldier\\' + str(randint(1, 34)) + '.png'
+            name = 'fix/Soldier/' + str(randint(1, 34)) + '.png'
         else:
             self.team_color = (0, 0, 255)
             self.spawn_point = pos
 
-            name = 'Enemy\\' + str(randint(1, 36)) + '.png'
+            name = 'fix/Enemy' + str(randint(1, 36)) + '.png'
 
         self.RAD = 15
 
@@ -301,6 +301,7 @@ while run:
 
     blue_feed = red_pos.copy()
     blue_feed.append(pl.cords)
+
 
     creep_s_kd += 1
     creep_kd += 1

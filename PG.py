@@ -1,11 +1,10 @@
-from pprint import pprint
-
 import pygame as pg
 from pygame.math import Vector2
 
 from map import Map
 from sprites import Player
 from sprites import Creep
+from Buildings.Buildings import RadiusTower
 
 
 def to_convenient_cords(x, y):
@@ -57,6 +56,9 @@ def main():
     team_red = list()
     towers = list()
 
+    heal = RadiusTower(1920 + 280 * 2, 1080 - 280 * 3, screen)
+    damage = heal.update()
+
     creep_s_kd = 0
     creep_kd = 0
 
@@ -77,6 +79,7 @@ def main():
 
     beings = [team_blue, team_red, towers, allowed]
     sprite_objects.append(world)
+    sprite_objects.append(heal)
 
     def draw_again_after_death(cords, boost):
         x, y = cords
@@ -141,21 +144,34 @@ def main():
             unit.check_health()
             unit.take_damage_f_creep(blue_pos, unit.attack())
 
+        heal.attack(team_blue, team_blue[0].sprite.rect.center)
+        damage = heal.update()
+
         for unit in team_blue:
             unit.draw()
             unit.move(blue_feed)
             unit.health_bar()
             unit.check_health()
             unit.take_damage_f_creep(red_pos, unit.attack())
+            if not damage:
+                damage = heal.update()
+                if damage:
+                    unit.take_damage_f_pl(damage[0], damage[1])
+            else:
+                unit.take_damage_f_pl(damage[0], damage[1])
 
             if creep_kd % 40 == 0:
                 player.take_damage_f_creep(unit.cords, unit.attack())
+
+            if fill:
+                if player.chase(p, unit.cords, unit.RAD):
+                    unit.take_damage_f_pl(player.cords, player.attack())
 
         player.draw()
         player.check_health(draw_again_after_death)
 
         pg.display.flip()
-        clock.tick(60)
+        clock.tick(120)
 
 
 main()
