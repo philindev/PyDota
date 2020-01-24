@@ -220,7 +220,13 @@ class Player:
         elif abs(dx) < 20 and dy < -20:
             self.y_add = -5
 
+        count = 0
         for _ in items:
+            count += 1
+            if count == 8 or count == 9:
+                _.sprite.image.get_rect().x -= int(self.x_add * self.boost * 0.75)
+                _.sprite.image.get_rect().y -= int(self.y_add * self.boost * 0.75)
+                continue
             _.rect.x -= int(self.x_add * self.boost * 0.75)
             _.rect.y -= int(self.y_add * self.boost * 0.75)
 
@@ -390,9 +396,6 @@ class Giant(Creep):
     def __init__(self, col, pos):
         super(Giant, self).__init__(col, pos)
         self.RAD = 30
-
-    def add_screen(self, screen):
-        self.screen = screen
 
 
     def move_g(self, en_pos_list):
