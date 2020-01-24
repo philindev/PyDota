@@ -155,6 +155,9 @@ class Player:
         self.PRAD = 10
         self.x_add, self.y_add = 0, 0
         self.boost = 4
+
+        self.extra_x, self.extra_y = 0, 0
+
         self.spawn_point = [pg.display.Info().current_w // 2, pg.display.Info().current_h // 2]
         self.cords = self.spawn_point.copy()
         self.red, self.h_green, self.p_green = (200, 100, 0), (0, 255, 0), (0, 200, 0)
@@ -175,7 +178,7 @@ class Player:
     def set_point_position(self, pos):
         self.en_pos_list = pos
 
-    def move(self, items):
+    def move(self, items, beings):
         self.dist, self.x_line, self.y_line = [], [], []
 
         dx = self.en_pos_list[0] - self.cords[0]
@@ -212,8 +215,19 @@ class Player:
             _.rect.x -= int(self.x_add * self.boost * 0.75)
             _.rect.y -= int(self.y_add * self.boost * 0.75)
 
+        for creatures in beings:
+            for _ in creatures:
+                _.cords[0] -= int(self.x_add * self.boost * 0.75)
+                _.cords[1] -= int(self.y_add * self.boost * 0.75)
+                _.spawn_point[0] -= int(self.x_add * self.boost * 0.75)
+                _.spawn_point[1] -= int(self.y_add * self.boost * 0.75)
+
         self.en_pos_list[0] -= int(self.x_add * self.boost * 0.75)
         self.en_pos_list[1] -= int(self.y_add * self.boost * 0.75)
+
+        self.extra_x += int(self.x_add * self.boost * 0.75)
+        self.extra_y += int(self.y_add * self.boost * 0.75)
+        print(self.extra_x)
 
         self.sprite.update(int(self.x_add * self.boost), int(self.y_add * self.boost))
 
@@ -221,11 +235,12 @@ class Player:
         if int(sqrt((self.cords[0] - en_location[0]) ** 2 + (self.cords[1] - en_location[1]) ** 2)) < danger[1]:
             self.health -= danger[0]
 
-    def check_health(self):
+    def check_health(self, draw_again):
         if self.health <= 0:
             self.health = self.full_health
             self.cords = self.spawn_point.copy()
             self.en_pos_list = self.spawn_point.copy()
+            draw_again((self.extra_y, self.extra_y), self.boost)
 
     def attack(self):
         return [self.damage, self.hit_range]
@@ -243,14 +258,17 @@ class Creep:
         if col:
             self.team_color = (255, 0, 0)
             self.spawn_point = pos
-            self.h_b = (0, 255, 0)
+
+            name = 'fix/Soldier/' + str(randint(1, 34)) + '.png'
         else:
             self.team_color = (0, 0, 255)
             self.spawn_point = pos
-            self.h_b = (255, 0, 0)
+
+            name = 'fix/Enemy/' + str(randint(1, 36)) + '.png'
 
         self.RAD = 15
 
+        self.green = (0, 255, 0)
 
         self.view = 300
         self.hit_range = 85
@@ -260,22 +278,19 @@ class Creep:
         self.full_health = 400
         self.health = 400
 
+        self.sprite = cutter.AnimatedSprite(pg.image.load(name))
+
         self.x_add, self.y_add = 0, 0
 
     def draw(self):
-        pygame1 = pg
-        pygame1.draw.circle(self.screen, self.team_color, self.cords, self.RAD)
-        pygame1.draw.circle(self.screen, (255, 255, 0), self.cords, self.view, 1)
-        pygame1.draw.circle(self.screen, (255, 0, 0), self.cords, self.hit_range, 1)
+        size = self.sprite.rect.size
+        self.screen.blit(self.sprite.image, (self.cords[0] - size[0] // 2, self.cords[1] - size[1] // 2, *size))
 
-        pygame1.draw.rect(self.screen, (0, 255, 0), (self.cords[0] - self.RAD, self.cords[1] - self.RAD, self.RAD * 2, self.RAD * 2), 1)
-
-    def move(self, en_tow_pos, en_pos_list):
+    def move(self, en_pos_list):
         self.boost = 2
         self.dist, self.x_line, self.y_line = [], [], []
         self.in_view = []
         self.en_pos_list = en_pos_list
-        self.en_tow_pos = en_tow_pos
         self.en_pos_list = list(map(list, self.en_pos_list))
         self.x_add = 0
         self.y_add = 0
@@ -320,51 +335,16 @@ class Creep:
             elif dy < -50:
                 self.y_add = -5
 
-        else:
-            for j in range(len(self.en_tow_pos)):
-                self.dist.append(
-                    abs(self.cords[0] - self.en_tow_pos[j][0]) + abs(self.cords[1] - self.en_tow_pos[j][1]))
-
-            mnind = self.dist.index(min(self.dist))
-
-            dx = self.en_tow_pos[mnind][0] - self.cords[0]
-            dy = self.en_tow_pos[mnind][1] - self.cords[1]
-            if dx == 0:
-                dx = -1
-            k = (self.en_tow_pos[mnind][1] - self.cords[1]) / dx
-            b = self.cords[1] - k * self.cords[0]
-
-            xslide = dx / 100
-
-            if abs(dx) > 40:
-                for d in range(1, 3):
-                    x = d * xslide
-                    self.x_line.append(x)
-                    y = k * x + b
-                    self.y_line.append(y)
-            else:
-                self.x_line.append(1)
-                self.y_line.append(1)
-                self.x_line.append(1)
-                self.y_line.append(1)
-
-            self.x_add = self.x_line[1] - self.x_line[0]
-            self.y_add = self.y_line[1] - self.y_line[0]
-
-            if dy > 50:
-                self.y_add = 5
-            elif dy < -50:
-                self.y_add = -5
-
         self.cords[0] += int(self.x_add * self.boost)
         self.cords[1] += int(self.y_add * self.boost)
 
+        self.sprite.update(int(self.x_add * self.boost), int(self.y_add * self.boost))
 
     def attack(self):
         return [self.damage, self.hit_range]
 
     def health_bar(self):
-        pg.draw.rect(self.screen, self.h_b, (self.cords[0] - self.RAD,
+        pg.draw.rect(self.screen, self.green, (self.cords[0] - self.RAD,
                                               self.cords[1] - self.RAD - self.RAD / 5 - self.RAD / 4,
                                               (self.RAD * 2) * (self.health / self.full_health),
                                               self.RAD / 4),

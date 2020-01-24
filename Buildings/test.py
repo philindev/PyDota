@@ -2,7 +2,7 @@ from math import sqrt
 import pygame
 import cutter
 from random import randint
-import Help
+import Buildings
 
 pygame.init()
 height, width = 1300, 700
@@ -196,6 +196,8 @@ class Creep:
         if int(sqrt((self.cords[0] - en_location[0]) ** 2 + (self.cords[1] - en_location[1]) ** 2)) < danger[1]:
             self.health -= danger[0]
 
+
+
     def take_damage_f_creep(self, en_location, danger):
         for i in en_location:
             if int(sqrt((self.cords[0] - i[0]) ** 2 + (self.cords[1] - i[1]) ** 2)) < danger[1]:
@@ -266,7 +268,8 @@ crb16 = Creep(False, [1200, 650])
 
 team_red = [crr1, crr2, crr3, crr4, crr5, crr6, crr7, crr8, crr9, crr10, crr11, crr12, crr13, crr14, crr15, crr16]
 team_blue = [crb1, crb2, crb3, crb4, crb5, crb6, crb7, crb8, crb9, crb10, crb11, crb12, crb13, crb14, crb15, crb16]
-# heal = Help.Heal(1050, 0, screen)
+heal = Buildings.RadiusTower(550, 0, screen)
+damge = heal.update()
 
 pl = Player()
 run = True
@@ -309,12 +312,20 @@ while run:
         team_red[i].check_health()
         team_red[i].take_damage_f_creep(blue_pos, team_red[i].attack())
 
+    heal.attack(team_blue, team_blue[0].sprite.rect.center)
+    damage = heal.update()
     for i in range(len(team_blue)):
         team_blue[i].draw()
         team_blue[i].move(blue_feed)
         team_blue[i].health_bar()
         team_blue[i].check_health()
         team_blue[i].take_damage_f_creep(red_pos, team_blue[i].attack())
+        if not damage:
+            damage = heal.update()
+            if damage:
+                team_blue[i].take_damage_f_pl(damage[0], damage[1])
+        else:
+            team_blue[i].take_damage_f_pl(damage[0], damage[1])
 
         if creep_kd % 40 == 0:
             pl.take_damage_f_creep(team_blue[i].cords, team_blue[i].attack())
@@ -328,6 +339,8 @@ while run:
 
     pl.draw()
     pl.check_health()
+
+    heal.damaged(15)
 
 
     clock.tick(30)

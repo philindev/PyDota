@@ -3,7 +3,8 @@ import sys
 
 import pygame
 
-picture = """⠄⠄⠄⠄⠄⠄⢴⡶⣶⣶⣶⡒⣶⣶⣖⠢⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+picture = """
+                ⠄⠄⠄⠄⠄⠄⢴⡶⣶⣶⣶⡒⣶⣶⣖⠢⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
                 ⠄⠄⠄⠄⠄⠄⢠⣿⣋⣿⣿⣉⣿⣿⣯⣧⡰⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
                 ⠄⠄⠄⠄⠄⠄⣿⣿⣹⣿⣿⣏⣿⣿⡗⣿⣿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
                 ⠄⠄⠄⠄⠄⠄⠟⡛⣉⣭⣭⣭⠌⠛⡻⢿⣿⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
@@ -59,7 +60,7 @@ def btn(x: int, y: int, screen: pygame.Surface, icon_path: str, shadow: str, tex
 class Menu:
     def __init__(self, width, height):
         self.size = width, height
-        self.image = pygame.transform.scale(load_image("game/menu_icons/menu_image1.png"), (width, height))
+        self.image = pygame.transform.scale(pygame.image.load("game/menu_icons/menu_image1.png"), (width, height))
         self.favicon_image = load_image("game/menu_icons/main_icon.png")
         self.mode = [False, False, False]
         self.on_focus = [False, False, False]
@@ -113,6 +114,9 @@ class Menu:
                         self.mode[1] = True
                     elif event.type == pygame.MOUSEBUTTONUP:
                         self.mode[1] = False
+                        print(picture)
+                        print('Good buy, gamer!')
+                        sys.exit(0)
                 else:
                     self.on_focus[1] = False
                 if start_y + 110 * 2 <= y <= start_y + 110 * 2 + 80:
@@ -121,9 +125,7 @@ class Menu:
                         self.mode[2] = True
                     elif event.type == pygame.MOUSEBUTTONUP:
                         self.mode[2] = False
-                        print(picture)
-                        print('Good buy, gamer!')
-                        sys.exit(0)
+
                 else:
                     self.on_focus[2] = False
 

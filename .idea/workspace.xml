@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c1905e7-7975-40b0-b059-9a7a67db521b" name="Default Changelist" comment="Создал класс Map который должен генерировать и отрисовывать карту.&#10;&#10;Также у при создании класса, можно указать доп.атрибут mode=True который откроет меню редактирования карты.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Buildings/test" beforeDir="false" afterPath="$PROJECT_DIR$/Buildings/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PG.py" beforeDir="false" afterPath="$PROJECT_DIR$/PG.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fix/pydota 11" beforeDir="false" afterPath="$PROJECT_DIR$/fix/pydota _11.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites.py" beforeDir="false" afterPath="$PROJECT_DIR$/sprites.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +35,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1VHz0N0bYWPSVTMFKKzaKmrwTyJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -47,7 +53,7 @@
       <recent name="C:\Users\MI\Desktop\PyDota\game\texuters" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.__init__">
+  <component name="RunManager" selected="Python.PG">
     <configuration name="PG" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PyDota" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -155,9 +161,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.PG" />
         <item itemvalue="Python.__init__" />
         <item itemvalue="Python.map" />
-        <item itemvalue="Python.PG" />
         <item itemvalue="Python.sprites" />
         <item itemvalue="Python.pydota_10" />
       </list>
@@ -214,51 +220,51 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="452" y="128" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1579418223417" />
-    <state width="476" height="952" key="GridCell.Tab.0.bottom" timestamp="1579523845131">
+    <state width="561" height="952" key="GridCell.Tab.0.bottom" timestamp="1579853938831">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="650" height="276" key="GridCell.Tab.0.bottom/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811643" />
-    <state width="476" height="952" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
-    <state width="476" height="952" key="GridCell.Tab.0.center" timestamp="1579523845131">
+    <state width="561" height="952" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579853938831" />
+    <state width="561" height="952" key="GridCell.Tab.0.center" timestamp="1579853938831">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="650" height="276" key="GridCell.Tab.0.center/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811643" />
-    <state width="476" height="952" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
-    <state width="476" height="952" key="GridCell.Tab.0.left" timestamp="1579523845131">
+    <state width="561" height="952" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579853938831" />
+    <state width="561" height="952" key="GridCell.Tab.0.left" timestamp="1579853938830">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="650" height="276" key="GridCell.Tab.0.left/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811642" />
-    <state width="476" height="952" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
-    <state width="476" height="952" key="GridCell.Tab.0.right" timestamp="1579523845131">
+    <state width="561" height="952" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579853938830" />
+    <state width="561" height="952" key="GridCell.Tab.0.right" timestamp="1579853938831">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="650" height="276" key="GridCell.Tab.0.right/0.0.1280.1024@0.0.1280.1024" timestamp="1576930811643" />
-    <state width="476" height="952" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579523845131" />
-    <state width="1877" height="364" key="GridCell.Tab.1.bottom" timestamp="1579523843148">
+    <state width="561" height="952" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579853938831" />
+    <state width="1877" height="364" key="GridCell.Tab.1.bottom" timestamp="1579528056457">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="364" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
-    <state width="1877" height="364" key="GridCell.Tab.1.center" timestamp="1579523843148">
+    <state width="1877" height="364" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579528056457" />
+    <state width="1877" height="364" key="GridCell.Tab.1.center" timestamp="1579528056457">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="364" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
-    <state width="1877" height="364" key="GridCell.Tab.1.left" timestamp="1579523843148">
+    <state width="1877" height="364" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579528056457" />
+    <state width="1877" height="364" key="GridCell.Tab.1.left" timestamp="1579528056457">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="364" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
-    <state width="1877" height="364" key="GridCell.Tab.1.right" timestamp="1579523843148">
+    <state width="1877" height="364" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579528056457" />
+    <state width="1877" height="364" key="GridCell.Tab.1.right" timestamp="1579528056457">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="364" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579523843148" />
+    <state width="1877" height="364" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579528056457" />
     <state x="464" y="248" key="Vcs.Push.Dialog.v2" timestamp="1576930388771">
       <screen x="0" y="0" width="1280" height="1024" />
     </state>
     <state x="464" y="248" key="Vcs.Push.Dialog.v2/0.0.1280.1024@0.0.1280.1024" timestamp="1576930388771" />
-    <state x="357" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1579507554769">
+    <state x="357" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1579694741554">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="238" y="360" key="com.intellij.ide.util.TipDialog/0.0.1280.1024@0.0.1280.1024" timestamp="1576924800456" />
-    <state x="357" y="380" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1579507554769" />
+    <state x="357" y="380" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1579694741554" />
     <state x="695" y="332" key="git4idea.merge.GitPullDialog" timestamp="1578047816340">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
