@@ -90,9 +90,7 @@ def main():
                 unit.spawn_point[0] += x
                 unit.spawn_point[1] += y
 
-
     fill = False
-
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:

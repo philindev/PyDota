@@ -45,7 +45,6 @@ class Map:
         x, y = 0, 0
         render_map = pg.Surface((len(land[0]) * 280, len(land) * 280))
 
-
         for row in land:
             for element in row:
                 if element == " ":
