@@ -95,7 +95,7 @@ class RadiusTower(_AAttackTower):
 class Bomb(pygame.sprite.Sprite):
     def __init__(self, x, y, screen):
         pygame.sprite.Sprite.__init__(self)
-        self.surface = AnimatedSprite(pygame.image.load('boom.png'), 8, 1)
+        self.surface = AnimatedSprite(pygame.image.load('Buildings/boom.png'), 8, 1)
         self.screen = screen
         self.rect = self.surface.image.get_rect()
         self.rect.x = x - 75

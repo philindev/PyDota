@@ -391,9 +391,6 @@ class Giant(Creep):
         super(Giant, self).__init__(col, pos)
         self.RAD = 30
 
-    def add_screen(self, screen):
-        self.screen = screen
-
 
     def move_g(self, en_pos_list):
         self.boost = 2

@@ -3,7 +3,7 @@ from pygame.math import Vector2
 
 from map import Map
 from sprites import Player
-from sprites import Creep
+from sprites import Creep, Giant
 from Buildings.Buildings import RadiusTower
 
 
@@ -56,14 +56,30 @@ def main():
     team_red = list()
     towers = list()
 
-    heal = RadiusTower(1920 + 280 * 2, 1080 - 280 * 3, screen)
-    damage = heal.update()
+    heal1 = RadiusTower(1920 - 280 * 4, 1080 - 280 * 4, screen)
+    damage1 = heal1.update()
+    heal2 = RadiusTower(1920, 1080 - 280 * 5, screen)
+    damage2 = heal2.update()
+
+    dire1 = RadiusTower(1920 - 280 - 70, 1080 - 280 * 7 - 70, screen)
+    ddamage1 = dire1.update()
+    dire2 = RadiusTower(1920 + 280 * 2, 1080 - 280 * 8, screen)
+    ddamage2 = dire2.update()
 
     creep_s_kd = 0
     creep_kd = 0
 
     spawn_red_points = [[i, j] for i in range(0, 200, 50) for j in range(0, 200, 50)]
     spawn_blue_points = [[i, j] for i in range(0, 200, 50) for j in range(0, 200, 50)]
+
+    rgig_list = list()
+    bgig_list = list()
+
+    for i in range(3):
+        a = Giant(True, [1920 + 280 * 2, 1080 - 280 * 3])
+        b = Giant(False, [2200, - 1000])
+        rgig_list.append(a)
+        bgig_list.append(b)
 
     for _ in spawn_red_points:
         extra_x, extra_y = 1920 + 280 * 2, 1080 - 280 * 3
@@ -79,12 +95,16 @@ def main():
 
     beings = [team_blue, team_red, towers, allowed]
     sprite_objects.append(world)
-    sprite_objects.append(heal)
+    sprite_objects.append(heal1)
+    sprite_objects.append(heal2)
+    sprite_objects.append(dire1)
+    sprite_objects.append(dire2)
 
     def draw_again_after_death(cords, boost):
         x, y = cords
-        world.rect.x += x
-        world.rect.y += y
+        for _ in sprite_objects:
+            _.rect.y += y
+            _.rect.x += x
         count = 0
         for obj in beings:
             count += 1
@@ -133,9 +153,13 @@ def main():
         if fill:
             player.move(sprite_objects, beings, allowed)
 
-
         for _ in sprite_objects:
             screen.blit(_.image, _.rect)
+
+        dire1.attack(team_red, team_red[0].sprite.rect.center)
+        ddamage1 = dire1.update()
+        dire2.attack(team_red, team_red[0].sprite.rect.center)
+        ddamage2 = dire2.update()
 
         for unit in team_red:
             unit.draw()
@@ -143,9 +167,23 @@ def main():
             unit.health_bar()
             unit.check_health()
             unit.take_damage_f_creep(blue_pos, unit.attack())
+            if not ddamage1:
+                ddamage1 = dire1.update()
+                if ddamage1:
+                    unit.take_damage_f_pl(ddamage1[0], ddamage1[1])
+            else:
+                unit.take_damage_f_pl(ddamage1[0], ddamage1[1])
+            if not ddamage2:
+                ddamage2 = dire2.update()
+                if ddamage2:
+                    unit.take_damage_f_pl(ddamage2[0], ddamage2[1])
+            else:
+                unit.take_damage_f_pl(damage2[0], damage2[1])
 
-        heal.attack(team_blue, team_blue[0].sprite.rect.center)
-        damage = heal.update()
+        heal1.attack(team_blue, team_blue[0].sprite.rect.center)
+        damage1 = heal1.update()
+        heal2.attack(team_blue, team_blue[0].sprite.rect.center)
+        damage2 = heal2.update()
 
         for unit in team_blue:
             unit.draw()
@@ -153,12 +191,18 @@ def main():
             unit.health_bar()
             unit.check_health()
             unit.take_damage_f_creep(red_pos, unit.attack())
-            if not damage:
-                damage = heal.update()
-                if damage:
-                    unit.take_damage_f_pl(damage[0], damage[1])
+            if not damage1:
+                damage1 = heal1.update()
+                if damage1:
+                    unit.take_damage_f_pl(damage1[0], damage1[1])
             else:
-                unit.take_damage_f_pl(damage[0], damage[1])
+                unit.take_damage_f_pl(damage1[0], damage1[1])
+            if not damage2:
+                damage2 = heal2.update()
+                if damage2:
+                    unit.take_damage_f_pl(damage2[0], damage2[1])
+            else:
+                unit.take_damage_f_pl(damage2[0], damage2[1])
 
             if creep_kd % 40 == 0:
                 player.take_damage_f_creep(unit.cords, unit.attack())
@@ -171,7 +215,7 @@ def main():
         player.check_health(draw_again_after_death)
 
         pg.display.flip()
-        clock.tick(120)
+        clock.tick(60)
 
 
 main()
