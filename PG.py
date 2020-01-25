@@ -252,14 +252,14 @@ def main():
         pg.display.flip()
         clock.tick(60)
 
-        if light.check_win():
-            run = False
-            winner = False
-        elif dire.check_win():
-            run = False
-            winner = True
-
-        light.damaged((1920 - 280 * 4 - 140, 1080 - 280 * 2), (0, 100))
+        # if light.check_win():
+        #     run = False
+        #     winner = False
+        # elif dire.check_win():
+        #     run = False
+        #     winner = True
+        #
+        # light.damaged((1920 - 280 * 4 - 140, 1080 - 280 * 2), (0, 100))
 
     return winner
 

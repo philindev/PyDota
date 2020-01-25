@@ -223,3 +223,4 @@ class PointTower(_AAttackTower):
 class MainTower(_AAttackTower):
     def __init__(self, x, y, screen):
         super().__init__(x, y, screen, radius=20, sprite='Buildings/Shop.png', xp=1000, damage=0)
+        

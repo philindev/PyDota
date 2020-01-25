@@ -224,31 +224,31 @@ class Player:
         for _ in items:
             count += 1
             if count == 8 or count == 9:
-                _.sprite.image.get_rect().x -= int(self.x_add * self.boost * 0.75)
-                _.sprite.image.get_rect().y -= int(self.y_add * self.boost * 0.75)
+                _.sprite.image.get_rect().x -= int(self.x_add * self.boost)
+                _.sprite.image.get_rect().y -= int(self.y_add * self.boost)
                 continue
-            _.rect.x -= int(self.x_add * self.boost * 0.75)
-            _.rect.y -= int(self.y_add * self.boost * 0.75)
+            _.rect.x -= int(self.x_add * self.boost)
+            _.rect.y -= int(self.y_add * self.boost)
 
         count = 0
         for creatures in beings:
             count += 1
             if count == 4:
                 for cords in creatures:
-                    cords[0] -= int(self.x_add * self.boost * 0.75)
-                    cords[1] -= int(self.y_add * self.boost * 0.75)
+                    cords[0] -= int(self.x_add * self.boost)
+                    cords[1] -= int(self.y_add * self.boost)
             else:
                 for _ in creatures:
-                    _.cords[0] -= int(self.x_add * self.boost * 0.75)
-                    _.cords[1] -= int(self.y_add * self.boost * 0.75)
-                    _.spawn_point[0] -= int(self.x_add * self.boost * 0.75)
-                    _.spawn_point[1] -= int(self.y_add * self.boost * 0.75)
+                    _.cords[0] -= int(self.x_add * self.boost)
+                    _.cords[1] -= int(self.y_add * self.boost)
+                    _.spawn_point[0] -= int(self.x_add * self.boost)
+                    _.spawn_point[1] -= int(self.y_add * self.boost)
 
-        self.en_pos_list[0] -= int(self.x_add * self.boost * 0.75)
-        self.en_pos_list[1] -= int(self.y_add * self.boost * 0.75)
+        self.en_pos_list[0] -= int(self.x_add * self.boost)
+        self.en_pos_list[1] -= int(self.y_add * self.boost)
 
-        self.extra_x += int(self.x_add * self.boost * 0.75)
-        self.extra_y += int(self.y_add * self.boost * 0.75)
+        self.extra_x += int(self.x_add * self.boost)
+        self.extra_y += int(self.y_add * self.boost)
 
         self.sprite.update(int(self.x_add * self.boost), int(self.y_add * self.boost))
 
@@ -262,6 +262,7 @@ class Player:
             self.cords = self.spawn_point.copy()
             self.en_pos_list = self.spawn_point.copy()
             draw_again((self.extra_x, self.extra_y), self.boost)
+            self.extra_x, self.extra_y = 0, 0
 
     def attack(self):
         return [self.damage, self.hit_range]
@@ -291,7 +292,7 @@ class Creep:
 
         self.green = (0, 255, 0)
 
-        self.view = 300
+        self.view = 2000
         self.hit_range = 85
         self.damage = 20
 
