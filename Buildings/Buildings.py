@@ -180,10 +180,25 @@ class PointTower(_AAttackTower):
 class MainTower(_AAttackTower):
     def __init__(self, x, y, screen):
         super().__init__(x, y, screen, radius=20, sprite='Buildings/Shop.png', xp=1000, damage=0)
-<<<<<<< HEAD
-        
-=======
+        self.full_health = 1000
+
+    def health_bar(self):
+        if self.team:
+            self.h_b_c = (0, 255, 0)
+        else:
+            self.h_b_c = (255, 0, 0)
+
+        rect = self.rect
+        x, y = rect.x, rect.y
+        w, h = rect[2], rect[3]
+        pygame.draw.rect(self.screen, self.h_b_c, (x,
+                                                 y - h / 8,
+                                                 w * (self.xp / self.full_health),
+                                                 h / 8), 0)
 
     def check_win(self):
         return self.dead
->>>>>>> 4d87e1e227d57f5836c7d844883405e77e586295
+
+    def create_team(self, team):
+        self.team = team
+

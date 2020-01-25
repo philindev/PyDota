@@ -26,7 +26,10 @@ class _AAttackTower(_ABuild):
         self.dead = False
 
     def damaged(self, pos, danger):
-        if int(sqrt((self.rect[0] + self.rect.center[0] - pos[0]) ** 2 + (self.rect[1] + self.rect.center[1] - pos[1]) ** 2)) < danger[1]:
+        if int(sqrt((self.rect.x + self.rect.center[0] - pos[0]) ** 2 + (self.rect.y + self.rect.center[1] - pos[1]) ** 2)) < 700:
             self.xp -= danger[0]
+            print(danger)
         if self.xp <= 0:
             self.dead = True
+        print(self.rect)
+        print(int(sqrt((self.rect[0] + self.rect.center[0] - pos[0]) ** 2 + (self.rect[1] + self.rect.center[1] - pos[1]) ** 2)), danger[1])

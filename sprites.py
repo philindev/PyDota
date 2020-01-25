@@ -280,11 +280,13 @@ class Creep:
         if col:
             self.team_color = (255, 0, 0)
             self.spawn_point = pos
+            self.h_b_c = (0, 255, 0)
 
             name = 'fix/Soldier/' + str(randint(1, 34)) + '.png'
         else:
             self.team_color = (0, 0, 255)
             self.spawn_point = pos
+            self.h_b_c = (255, 0, 0)
 
             name = 'fix/Enemy/' + str(randint(1, 36)) + '.png'
 
@@ -366,7 +368,7 @@ class Creep:
         return [self.damage, self.hit_range]
 
     def health_bar(self):
-        pg.draw.rect(self.screen, self.green, (self.cords[0] - self.RAD,
+        pg.draw.rect(self.screen, self.h_b_c, (self.cords[0] - self.RAD,
                                               self.cords[1] - self.RAD - self.RAD / 5 - self.RAD / 4,
                                               (self.RAD * 2) * (self.health / self.full_health),
                                               self.RAD / 4),

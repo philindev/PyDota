@@ -72,6 +72,9 @@ def main():
 
     light = MainTower(1920 - 280 * 4 - 140, 1080 - 280 * 2, screen)
     dire = MainTower(1920 + 280 * 2, 1080 - 280 * 8 - 140, screen)
+    light.create_team(True)
+    dire.create_team(False)
+
 
     heal_light = Heal(1920 - 280 * 2.5, 1080 - 280 * 6, screen)
 
@@ -176,6 +179,8 @@ def main():
         if fill:
             player.move(sprite_objects, beings, allowed)
 
+
+
         count = 0
         for _ in sprite_objects:
             count += 1
@@ -248,18 +253,22 @@ def main():
         if player.health < player.full_health:
             player.health += heal_light.help(player.cords)
 
+        light.health_bar()
+
+        dire.health_bar()
 
         pg.display.flip()
         clock.tick(60)
 
-        # if light.check_win():
-        #     run = False
-        #     winner = False
-        # elif dire.check_win():
-        #     run = False
-        #     winner = True
-        #
-        # light.damaged((1920 - 280 * 4 - 140, 1080 - 280 * 2), (0, 100))
+        if light.check_win():
+            run = False
+            winner = False
+        elif dire.check_win():
+            run = False
+            winner = True
+
+        light.damaged((1920 - 280 * 4 - 140, 1080 - 280 * 2), (200, 100))
+        dire.damaged((1920 - 280 * 4 - 140, 1080 - 280 * 2), player.attack())
 
     return winner, screen
 
