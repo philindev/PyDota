@@ -261,9 +261,25 @@ def main():
 
         light.damaged((1920 - 280 * 4 - 140, 1080 - 280 * 2), (0, 100))
 
-    return winner
+    return winner, screen
+
+def print_winner(winner, screen):
+    size = pg.display.Info().current_w, pg.display.Info().current_h
+    back = pg.Surface(size)
+    back.fill((0, 0, 0))
+    back.set_alpha(120)
+    if winner:
+        message = pg.image.load('win.png')
+    else:
+        message = pg.image.load('lose.png')
+
+    screen.blit(back, (0, 0))
+    coords = size[0] // 2 - message.get_rect().size[0] // 2, size[1] // 2
+    screen.blit(message, coords)
+    pg.display.flip()
+    pg.time.delay(5000)
 
 
-
-main()
+winner, screen = main()
+print_winner(winner, screen)
 pg.quit()
