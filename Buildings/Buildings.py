@@ -179,8 +179,8 @@ class PointTower(_AAttackTower):
 
 class MainTower(_AAttackTower):
     def __init__(self, x, y, screen):
-        super().__init__(x, y, screen, radius=20, sprite='Buildings/Shop.png', xp=1000, damage=0)
-        self.full_health = 1000
+        super().__init__(x, y, screen, radius=20, sprite='Buildings/Shop.png', xp=10000, damage=0)
+        self.full_health = 10000
 
     def health_bar(self):
         if self.team:

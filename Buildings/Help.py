@@ -22,6 +22,8 @@ class Heal:
         if y:
             self.sprite.rect.y += y
 
+        print(self.sprite.rect)
+
         self.screen.blit(self.sprite.image, self.sprite.rect)
 
     def help(self, pers):

@@ -223,9 +223,9 @@ class Player:
         count = 0
         for _ in items:
             count += 1
-            if count == 8 or count == 9:
-                _.sprite.image.get_rect().x -= int(self.x_add * self.boost)
-                _.sprite.image.get_rect().y -= int(self.y_add * self.boost)
+            if count == 8:
+                _.sprite.rect.x -= int(self.x_add * self.boost)
+                _.sprite.rect.y -= int(self.y_add * self.boost)
                 continue
             _.rect.x -= int(self.x_add * self.boost)
             _.rect.y -= int(self.y_add * self.boost)
