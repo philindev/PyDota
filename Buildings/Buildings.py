@@ -1,46 +1,6 @@
 import pygame
 from math import sqrt
-
-
-class _ABuild(pygame.sprite.Sprite):
-    def __init__(self, x, y, screen, radius, sprite, destroyable=False):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.radius = radius
-        self.image = pygame.image.load(sprite)
-        self.destroyable = destroyable
-        self.screen = screen
-
-        self.rect = self.image.get_rect()
-        self.count = 0
-
-
-        self.rect.x = x
-        self.rect.y = y
-
-    def update(self, x=0, y=0):
-        self.rect.x += x
-        self.rect.y += y
-        self.screen.blit(self.image, self.rect)
-
-
-class _AAttackTower(_ABuild):
-    def __init__(self, x, y, screen, xp, damage, radius, sprite):
-        super().__init__(x, y, screen, radius, sprite, True)
-        self.xp = xp
-        self.damage = damage
-        self.dead = False
-
-    def damaged(self, hp):
-        self.xp -= hp
-        if self.xp <= 0:
-            self.die()
-            return True
-        return False
-
-    def die(self):  # Если башня в списке, тоее нужно из него попнуть и обратиться
-        self.dead = True
-        self.image = Bomb(self.rect.x + self.rect.center[0], self.rect.y + self.rect.center[1], self.screen)
+from Buildings.Abstract_Build import _ABuild, _AAttackTower
 
 
 class RadiusTower(_AAttackTower):
@@ -67,29 +27,24 @@ class RadiusTower(_AAttackTower):
         self.bomb = None
 
     def attack(self, coor, center):
-        for pers in coor:
-            self.count += 1
+        if not self.dead:
+            for pers in coor:
+                self.count += 1
 
-            if int(sqrt((self.rect.center[0] - pers.cords[0]) ** 2 + (
-                    self.rect.center[1] - pers.cords[1]) ** 2)) < self.radius:
-                if self.count % 300 == 0:
-                    self.bomb = Bomb(pers.cords[0] + center[0], pers.cords[1] + center[1], self.screen)
+                if int(sqrt((self.rect.center[0] - pers.cords[0]) ** 2 + (
+                        self.rect.center[1] - pers.cords[1]) ** 2)) < self.radius:
+                    if self.count % 300 == 0:
+                        self.bomb = Bomb(pers.cords[0] + center[0], pers.cords[1] + center[1], self.screen)
 
     def update(self):
-        self.screen.blit(self.image, self.rect)
-        if self.bomb != None:
-            if self.bomb.update():
-                result = self.bomb.rect
-                self.bomb = None
-                return result, (75, self.damage)
-        return False
-        # else:
-        #     if self.dead.__class__.__name__ == 'TowerBoom':
-        #         if self.dead.update(self.count):
-        #             self.dead = Fire(pygame.image.load('fire.png', 8, 8))
-        #     else:
-        #         self.dead.update()
-        #     return False
+        if not self.dead:
+            self.screen.blit(self.image, self.rect)
+            if self.bomb != None:
+                if self.bomb.update():
+                    result = self.bomb.rect
+                    self.bomb = None
+                    return result, (75, self.damage)
+            return False
 
 
 class Bomb(pygame.sprite.Sprite):
@@ -203,24 +158,32 @@ class PointTower(_AAttackTower):
         self.bullet = None
 
     def attack(self, coor):
-        for pers in coor:
-            self.count += 1
+        if not self.dead:
+            for pers in coor:
+                self.count += 1
 
-            if int(sqrt((self.rect.center[0] - pers.cords[0]) ** 2 + (
-                    self.rect.center[1] - pers.cords[1]) ** 2)) < self.radius:
-                if self.count % 100 == 0:
-                    self.bullet = Bullet(self.rect.topleft, pers.cords, self.screen)
-                    pers.health -= self.damage
-                    return
+                if int(sqrt((self.rect.center[0] - pers.cords[0]) ** 2 + (
+                        self.rect.center[1] - pers.cords[1]) ** 2)) < self.radius:
+                    if self.count % 100 == 0:
+                        self.bullet = Bullet(self.rect.topleft, pers.cords, self.screen)
+                        pers.health -= self.damage
+                        return
 
     def update(self, x=0, y=0):
-        self.screen.blit(self.image, self.rect)
-        if self.bullet != None:
-            if self.bullet.update():
-                self.bullet = None
+        if not self.dead:
+            self.screen.blit(self.image, self.rect)
+            if self.bullet != None:
+                if self.bullet.update():
+                    self.bullet = None
 
 
 class MainTower(_AAttackTower):
     def __init__(self, x, y, screen):
         super().__init__(x, y, screen, radius=20, sprite='Buildings/Shop.png', xp=1000, damage=0)
+<<<<<<< HEAD
         
+=======
+
+    def check_win(self):
+        return self.dead
+>>>>>>> 4d87e1e227d57f5836c7d844883405e77e586295
