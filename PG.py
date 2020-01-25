@@ -38,6 +38,9 @@ class Camera:
 
 
 def main():
+    run = True
+    winner = None
+
     pg.init()
     screen = pg.display.set_mode((0, 0), pg.FULLSCREEN)
     print(str(pg.display.Info().current_w) + ' x ' + str(pg.display.Info().current_h) + " разрешение экарана")
@@ -57,8 +60,8 @@ def main():
     team_red = list()
     towers = list()
 
-    heal1 = PointTower(1920 - 280 * 4, 1080 - 280 * 4, screen)
-    damage1 = heal1.update()
+    point = PointTower(1920 - 280 * 4, 1080 - 280 * 4, screen)
+    damage1 = point.update()
     heal2 = RadiusTower(1920, 1080 - 280 * 5, screen)
     damage2 = heal2.update()
 
@@ -70,7 +73,7 @@ def main():
     light = MainTower(1920 - 280 * 4 - 140, 1080 - 280 * 2, screen)
     dire = MainTower(1920 + 280 * 2, 1080 - 280 * 8 - 140, screen)
 
-    heal_light = Heal(1920 - 280 * 4, 1080 - 280 * 3, screen)
+    heal_light = Heal(1920 - 280 * 2.5, 1080 - 280 * 6, screen)
 
     creep_s_kd = 0
     creep_kd = 0
@@ -101,7 +104,7 @@ def main():
 
     beings = [team_blue, team_red, towers, allowed]
     sprite_objects.append(world)
-    sprite_objects.append(heal1)
+    sprite_objects.append(point)
     sprite_objects.append(heal2)
     sprite_objects.append(dire1)
     sprite_objects.append(dire2)
@@ -115,8 +118,8 @@ def main():
         for _ in sprite_objects:
             count += 1
             if count == 8 or count == 9:
-                _.sprite.image.get_rect().x += x
-                _.sprite.image.get_rect().y += y
+                _.sprite.rect.x += x
+                _.sprite.rect.y += y
                 continue
             _.rect.y += y
             _.rect.x += x
@@ -134,8 +137,11 @@ def main():
                 unit.spawn_point[0] += x
                 unit.spawn_point[1] += y
 
+
+
+
     fill = False
-    while True:
+    while run:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
@@ -152,6 +158,8 @@ def main():
                     world.print_pos()
 
         screen.fill((30, 30, 30))
+
+        heal_light.update()
 
         blue_pos = [i.cords for i in team_blue]
         blue_collide = [i.collision() for i in team_blue]
@@ -171,14 +179,17 @@ def main():
         count = 0
         for _ in sprite_objects:
             count += 1
-            if count == 9 or count == 8:
-                screen.blit(_.sprite.image, _.sprite.image.get_rect())
+            if count == 8:
+                screen.blit(_.sprite.image, _.sprite.rect)
                 continue
             screen.blit(_.image, _.rect)
 
-        dire1.attack(team_red)
+        team = team_red.copy()
+        team.append(player)
+
+        dire1.attack(team)
         ddamage1 = dire1.update()
-        dire2.attack(team_red, team_red[0].sprite.rect.center)
+        dire2.attack(team, team_red[0].sprite.rect.center)
         ddamage2 = dire2.update()
 
         for unit in team_red:
@@ -198,10 +209,10 @@ def main():
                 if ddamage2:
                     unit.take_damage_f_pl(ddamage2[0], ddamage2[1])
             else:
-                unit.take_damage_f_pl(damage2[0], damage2[1])
+                unit.take_damage_f_pl(ddamage2[0], ddamage2[1])
 
-        heal1.attack(team_blue)
-        damage1 = heal1.update()
+        point.attack(team_blue)
+        damage1 = point.update()
         heal2.attack(team_blue, team_blue[0].sprite.rect.center)
         damage2 = heal2.update()
 
@@ -212,7 +223,7 @@ def main():
             unit.check_health()
             unit.take_damage_f_creep(red_pos, unit.attack())
             if not damage1:
-                damage1 = heal1.update()
+                damage1 = point.update()
                 if damage1:
                     unit.take_damage_f_pl(damage1[0], damage1[1])
             else:
@@ -234,8 +245,24 @@ def main():
         player.draw()
         player.check_health(draw_again_after_death)
 
+        if player.health < player.full_health:
+            player.health += heal_light.help(player.cords)
+
+
         pg.display.flip()
         clock.tick(60)
+
+        if light.check_win():
+            run = False
+            winner = False
+        elif dire.check_win():
+            run = False
+            winner = True
+
+        light.damaged((1920 - 280 * 4 - 140, 1080 - 280 * 2), (0, 100))
+
+    return winner
+
 
 
 main()
